@@ -8,7 +8,6 @@ par.original <- par(no.readonly=TRUE); # Remember the original plotting paramete
 library(survival)
 library(cluster)
 library(protoclust)
-library(clValid)
 library("readxl")
 
 
@@ -653,9 +652,7 @@ if (finalGroups==0){
   }
   
   allC<-NULL # Construct a vector "allC" to record the C-index value of each grouping
-  allDI_0<-NULL # Construct a vector "allDI" to record the Dunn Index of each grouping based on initial dissimilarities
-  allDI_l<-NULL # Construct a vector "allDI" to record the Dunn Index of each grouping based on learned dissimilarities
-  
+
   for (i in 1:(numComb)){
  
     
@@ -698,14 +695,6 @@ if (finalGroups==0){
     
     allC <- cbind(allC, C_index(Cindexdata)) # Record the C-index in vector "allC"
     
-    ##############################################################
-    # Calculate Dunn index using current assignment "tempassign" #
-    ##############################################################
-    
-    tempcluster<-rep(seq_along(tempassign), lapply(tempassign, length))[order(unlist(tempassign))]
-
-    allDI_0 <- cbind(allDI_0, dunn(dis0, tempcluster))
-    allDI_l <- cbind(allDI_l, dunn(dis_l, tempcluster)) 
     
 
     
